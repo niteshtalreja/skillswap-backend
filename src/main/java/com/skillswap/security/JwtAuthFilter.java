@@ -26,13 +26,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                     @NonNull HttpServletResponse response,
-                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
 
+        // ============================================================
+        // ✅🔽 PUBLIC ROUTES — BINA TOKEN KE ALLOW KAREIN
+        // ============================================================
+        String path = request.getRequestURI();
+        if (path.equals("/api/auth/register") || path.equals("/api/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;  // ⚠️ IMPORTANT: Yahan se return karna hai!
+        }
+        // ============================================================
+        // ✅🔼 YAHAN TAK ADD KAREIN
+        // ============================================================
+
+        // 🔐 Baaki routes — JWT validate karein
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            // ❌ Token missing — 401 Unauthorized bhejein
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"Missing or invalid authentication token\"}");
             return;
         }
 
@@ -47,6 +63,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(userOpt.get(), null, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+        } else {
+            // ❌ Token invalid — 401 Unauthorized bhejein
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\":\"Invalid or expired token\"}");
+            return;
         }
 
         filterChain.doFilter(request, response);
