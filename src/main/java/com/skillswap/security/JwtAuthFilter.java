@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;  // ✅ ADD THIS
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,38 +19,33 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
-public class JwtAuthFilter extends OncePerRequestFilter {
+public class JwtAuthFilter extends OncePerRequestFilter {  // ✅ @RequiredArgsConstructor HATAYA
 
-    private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
+    @Autowired  // ✅ EXPLICIT AUTOWIRE
+    private JwtUtil jwtUtil;
+
+    @Autowired  // ✅ EXPLICIT AUTOWIRE
+    private UserRepository userRepository;
 
     @Override
-
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        // ============================================================
-        // ✅🔽 PUBLIC ROUTES — BINA TOKEN KE ALLOW KAREIN
-        // ============================================================
+        // ✅ PUBLIC ROUTES — SKIP
         String path = request.getRequestURI();
         if (path.equals("/api/auth/register") || path.equals("/api/auth/login")) {
             filterChain.doFilter(request, response);
-            return;  // ⚠️ IMPORTANT: Yahan se return karna hai!
+            return;
         }
-        // ============================================================
-        // ✅🔼 YAHAN TAK ADD KAREIN
-        // ============================================================
 
-        // 🔐 Baaki routes — JWT validate karein
+        // 🔐 PROTECTED ROUTES
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            // ❌ Token missing — 401 Unauthorized bhejein
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
-            response.getWriter().write("{\"error\":\"Missing or invalid authentication token\"}");
+            response.getWriter().write("{\"error\":\"Missing authentication token\"}");
             return;
         }
 
@@ -65,7 +61,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         } else {
-            // ❌ Token invalid — 401 Unauthorized bhejein
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write("{\"error\":\"Invalid or expired token\"}");
