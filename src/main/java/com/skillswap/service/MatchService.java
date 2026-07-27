@@ -1,8 +1,6 @@
 package com.skillswap.service;
 
 import com.skillswap.dto.MatchResponseDTO;
-import com.skillswap.entity.User;
-import com.skillswap.entity.UserSkillWant;
 import com.skillswap.repository.UserSkillOfferRepository;
 import com.skillswap.repository.UserSkillWantRepository;
 import lombok.RequiredArgsConstructor;

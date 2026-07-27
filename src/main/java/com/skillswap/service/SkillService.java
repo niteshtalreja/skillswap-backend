@@ -1,9 +1,5 @@
 package com.skillswap.service;
 
-import com.skillswap.entity.Skill;
-import com.skillswap.entity.User;
-import com.skillswap.entity.UserSkillOffer;
-import com.skillswap.entity.UserSkillWant;
 import com.skillswap.repository.SkillRepository;
 import com.skillswap.repository.UserRepository;
 import com.skillswap.repository.UserSkillOfferRepository;

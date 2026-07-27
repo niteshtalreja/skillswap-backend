@@ -1,6 +1,5 @@
 package com.skillswap.repository;
 
-import com.skillswap.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

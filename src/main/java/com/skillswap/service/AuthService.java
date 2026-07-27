@@ -4,7 +4,6 @@ import com.skillswap.dto.AuthResponseDTO;
 import com.skillswap.dto.LoginRequestDTO;
 import com.skillswap.dto.RegisterRequestDTO;
 import com.skillswap.dto.UserResponseDTO;
-import com.skillswap.entity.User;
 import com.skillswap.repository.UserRepository;
 import com.skillswap.security.JwtUtil;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,6 @@
 package com.skillswap.controller;
 
 import com.skillswap.dto.MatchResponseDTO;
-import com.skillswap.entity.User;
 import com.skillswap.service.MatchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

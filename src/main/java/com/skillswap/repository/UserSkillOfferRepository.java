@@ -1,8 +1,5 @@
 package com.skillswap.repository;
 
-import com.skillswap.entity.Skill;
-import com.skillswap.entity.User;
-import com.skillswap.entity.UserSkillOffer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,10 +1,6 @@
 package com.skillswap.controller;
 
 import com.skillswap.dto.SkillRequestDTO;
-import com.skillswap.entity.Skill;
-import com.skillswap.entity.User;
-import com.skillswap.entity.UserSkillOffer;
-import com.skillswap.entity.UserSkillWant;
 import com.skillswap.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
