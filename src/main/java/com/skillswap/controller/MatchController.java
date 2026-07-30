@@ -1,5 +1,5 @@
 package com.skillswap.controller;
-
+import com.skillswap.entity.User;
 import com.skillswap.dto.MatchResponseDTO;
 import com.skillswap.service.MatchService;
 import lombok.RequiredArgsConstructor;

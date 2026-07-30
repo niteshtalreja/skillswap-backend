@@ -1,13 +1,12 @@
-package com.skillswap.entity;
+package com.skillswap.entity;  // ✅ Package sahi hai?
 
-import jakarta.persistence.*;
+import jakarta.persistence.*;   // ✅ Imports sahi hain?
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "users")
 @Data

@@ -1,5 +1,6 @@
 package com.skillswap.repository;
 
+import com.skillswap.entity.UserSkillWant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

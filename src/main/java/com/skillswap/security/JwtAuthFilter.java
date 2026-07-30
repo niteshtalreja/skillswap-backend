@@ -1,5 +1,6 @@
 package com.skillswap.security;
 
+import com.skillswap.entity.User;
 import com.skillswap.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

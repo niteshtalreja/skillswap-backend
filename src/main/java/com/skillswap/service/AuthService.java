@@ -1,5 +1,6 @@
 package com.skillswap.service;
 
+import com.skillswap.entity.User;
 import com.skillswap.dto.AuthResponseDTO;
 import com.skillswap.dto.LoginRequestDTO;
 import com.skillswap.dto.RegisterRequestDTO;

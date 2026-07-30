@@ -23,10 +23,19 @@ public class ExchangeRequestController {
     @PostMapping("/request")
     public ResponseEntity<?> sendRequest(@Valid @RequestBody ExchangeRequestDTO requestDTO,
                                          @AuthenticationPrincipal User user) {
+        // ✅ ADD LOGS
+        System.out.println("=== SEND REQUEST ===");
+        System.out.println("User ID: " + user.getId());
+        System.out.println("User Email: " + user.getEmail());
+        System.out.println("Receiver ID: " + requestDTO.getReceiverId());
+        System.out.println("Sender Skill ID: " + requestDTO.getSenderSkillId());
+        System.out.println("Receiver Skill ID: " + requestDTO.getReceiverSkillId());
+
         try {
             ExchangeRequestResponseDTO response = exchangeRequestService.sendRequest(requestDTO, user.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IllegalArgumentException | IllegalStateException e) {
+            System.err.println("ERROR: " + e.getMessage());  // ✅ ADD LOG
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -68,6 +77,7 @@ public class ExchangeRequestController {
     public ResponseEntity<List<ExchangeRequestResponseDTO>> getMySentRequests(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(exchangeRequestService.getMySentRequests(user.getId()));
     }
+
 
     @GetMapping("/my-requests/received")
     public ResponseEntity<List<ExchangeRequestResponseDTO>> getMyReceivedRequests(@AuthenticationPrincipal User user) {
