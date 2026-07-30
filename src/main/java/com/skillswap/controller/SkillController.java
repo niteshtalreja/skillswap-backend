@@ -1,6 +1,10 @@
 package com.skillswap.controller;
 
 import com.skillswap.dto.SkillRequestDTO;
+import com.skillswap.entity.Skill;                    // ✅ ADD THIS
+import com.skillswap.entity.User;                    // ✅ ADD THIS
+import com.skillswap.entity.UserSkillOffer;          // ✅ ADD THIS
+import com.skillswap.entity.UserSkillWant;           // ✅ ADD THIS
 import com.skillswap.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +29,7 @@ public class SkillController {
 
     @PostMapping("/skills/offer")
     public ResponseEntity<?> addOffer(@AuthenticationPrincipal User user,
-                                       @Valid @RequestBody SkillRequestDTO request) {
+                                      @Valid @RequestBody SkillRequestDTO request) {
         try {
             skillService.addOfferSkill(user.getId(), request.getSkillName());
             return ResponseEntity.status(HttpStatus.CREATED).body("Skill added to offer list");
@@ -36,7 +40,7 @@ public class SkillController {
 
     @PostMapping("/skills/want")
     public ResponseEntity<?> addWant(@AuthenticationPrincipal User user,
-                                      @Valid @RequestBody SkillRequestDTO request) {
+                                     @Valid @RequestBody SkillRequestDTO request) {
         try {
             skillService.addWantSkill(user.getId(), request.getSkillName());
             return ResponseEntity.status(HttpStatus.CREATED).body("Skill added to want list");
