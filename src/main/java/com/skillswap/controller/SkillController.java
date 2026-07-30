@@ -1,7 +1,7 @@
 package com.skillswap.controller;
 
 import com.skillswap.dto.SkillRequestDTO;
-import com.skillswap.entity.Skill;                    // ✅ ADD THIS
+import com.skillswap.entity.Skill;                   // ✅ ADD THIS
 import com.skillswap.entity.User;                    // ✅ ADD THIS
 import com.skillswap.entity.UserSkillOffer;          // ✅ ADD THIS
 import com.skillswap.entity.UserSkillWant;           // ✅ ADD THIS
