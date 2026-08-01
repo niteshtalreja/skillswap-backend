@@ -53,7 +53,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://skillswap-frontend-zeta.vercel.app"
+                "https://skillswap-frontend-zeta.vercel.app",
+                "https://skillswap-frontend-git-main-nitesh17.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
