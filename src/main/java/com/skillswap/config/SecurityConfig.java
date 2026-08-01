@@ -37,10 +37,7 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/skills").permitAll()
                         .requestMatchers("/api/skills/**").authenticated()
-                        .requestMatchers("/api/skills/offer/**").authenticated()
-                        .requestMatchers("/api/skills/want/**").authenticated()
                         .requestMatchers("/api/exchange/**").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -54,8 +51,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://skillswap-frontend-zeta.vercel.app",
-                "https://skillswap-frontend-git-main-nitesh17.vercel.app"
+                "https://skillswap-frontend-zeta.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

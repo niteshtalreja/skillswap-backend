@@ -51,12 +51,14 @@ public class SkillController {
 
     @DeleteMapping("/skills/offer/{skillId}")
     public ResponseEntity<?> removeOffer(@AuthenticationPrincipal User user, @PathVariable Long skillId) {
+        System.out.println("🔴 DELETE OFFER called by user: " + user.getId() + ", skillId: " + skillId);
         skillService.removeOfferSkill(user.getId(), skillId);
         return ResponseEntity.ok("Removed from offer list");
     }
 
     @DeleteMapping("/skills/want/{skillId}")
     public ResponseEntity<?> removeWant(@AuthenticationPrincipal User user, @PathVariable Long skillId) {
+        System.out.println("🔴 DELETE WANT called by user: " + user.getId() + ", skillId: " + skillId);
         skillService.removeWantSkill(user.getId(), skillId);
         return ResponseEntity.ok("Removed from want list");
     }
@@ -70,4 +72,5 @@ public class SkillController {
     public ResponseEntity<List<UserSkillWant>> myWants(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(skillService.getWantsForUser(user.getId()));
     }
+
 }
