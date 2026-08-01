@@ -23,9 +23,8 @@ public interface UserSkillOfferRepository extends JpaRepository<UserSkillOffer, 
             "WHERE o.user.id = :userId")
     List<UserSkillOffer> findByUserIdWithDetails(@Param("userId") Long userId);
 
-    // ✅ Core matching query with fetch join
+    // ✅ FIXED — Remove JOIN FETCH from this query
     @Query("SELECT o.user FROM UserSkillOffer o " +
-            "JOIN FETCH o.user " +
             "WHERE o.skill.id = :skillId AND o.user.id <> :currentUserId")
     List<User> findUsersOfferingSkill(@Param("skillId") Long skillId,
                                       @Param("currentUserId") Long currentUserId);
