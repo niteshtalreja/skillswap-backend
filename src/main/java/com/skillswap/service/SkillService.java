@@ -10,6 +10,7 @@ import com.skillswap.repository.UserSkillOfferRepository;
 import com.skillswap.repository.UserSkillWantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class SkillService {
                 .orElseGet(() -> skillRepository.save(new Skill(null, name.trim())));
     }
 
+    @Transactional
     public void addOfferSkill(Long userId, String skillName) {
         User user = getUser(userId);
         Skill skill = getOrCreateSkill(skillName);
@@ -42,6 +44,7 @@ public class SkillService {
         offerRepository.save(new UserSkillOffer(null, user, skill));
     }
 
+    @Transactional
     public void addWantSkill(Long userId, String skillName) {
         User user = getUser(userId);
         Skill skill = getOrCreateSkill(skillName);
@@ -52,10 +55,12 @@ public class SkillService {
         wantRepository.save(new UserSkillWant(null, user, skill));
     }
 
+    @Transactional  // ✅ ADDED
     public void removeOfferSkill(Long userId, Long skillId) {
         offerRepository.deleteByUserIdAndSkillId(userId, skillId);
     }
 
+    @Transactional  // ✅ ADDED
     public void removeWantSkill(Long userId, Long skillId) {
         wantRepository.deleteByUserIdAndSkillId(userId, skillId);
     }
