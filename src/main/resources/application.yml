@@ -8,6 +8,11 @@ spring:
     password: SOUgrdCZAJLXLglKBHIuMiwouzBeNtlQ
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
   jpa:
     hibernate:
       ddl-auto: update
