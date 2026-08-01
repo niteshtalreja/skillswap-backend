@@ -16,7 +16,17 @@ public interface UserSkillOfferRepository extends JpaRepository<UserSkillOffer, 
 
     void deleteByUserIdAndSkillId(Long userId, Long skillId);
 
-    // Core matching query: find users who OFFER a given skill, excluding the current user
-    @Query("SELECT o.user FROM UserSkillOffer o WHERE o.skill.id = :skillId AND o.user.id <> :currentUserId")
-    List<User> findUsersOfferingSkill(@Param("skillId") Long skillId, @Param("currentUserId") Long currentUserId);
+    // ✅ ADD THIS — Fetch join to avoid N+1 queries
+    @Query("SELECT o FROM UserSkillOffer o " +
+            "JOIN FETCH o.user " +
+            "JOIN FETCH o.skill " +
+            "WHERE o.user.id = :userId")
+    List<UserSkillOffer> findByUserIdWithDetails(@Param("userId") Long userId);
+
+    // ✅ Core matching query with fetch join
+    @Query("SELECT o.user FROM UserSkillOffer o " +
+            "JOIN FETCH o.user " +
+            "WHERE o.skill.id = :skillId AND o.user.id <> :currentUserId")
+    List<User> findUsersOfferingSkill(@Param("skillId") Long skillId,
+                                      @Param("currentUserId") Long currentUserId);
 }

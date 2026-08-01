@@ -66,11 +66,11 @@ public class SkillService {
     }
 
     public List<UserSkillOffer> getOffersForUser(Long userId) {
-        return offerRepository.findByUserId(userId);
+        return offerRepository.findByUserIdWithDetails(userId);
     }
 
     public List<UserSkillWant> getWantsForUser(Long userId) {
-        return wantRepository.findByUserId(userId);
+        return wantRepository.findByUserIdWithDetails(userId);
     }
 
     private User getUser(Long userId) {

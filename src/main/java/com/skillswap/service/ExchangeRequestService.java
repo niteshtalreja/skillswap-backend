@@ -112,13 +112,17 @@ public class ExchangeRequestService {
     }
 
     public List<ExchangeRequestResponseDTO> getMySentRequests(Long userId) {
-        return exchangeRequestRepository.findBySenderId(userId)
-                .stream().map(this::convertToDTO).collect(Collectors.toList());
+        return exchangeRequestRepository.findBySenderIdWithDetails(userId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public List<ExchangeRequestResponseDTO> getMyReceivedRequests(Long userId) {
-        return exchangeRequestRepository.findByReceiverId(userId)
-                .stream().map(this::convertToDTO).collect(Collectors.toList());
+        return exchangeRequestRepository.findByReceiverIdWithDetails(userId)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     private ExchangeRequestResponseDTO convertToDTO(ExchangeRequest request) {

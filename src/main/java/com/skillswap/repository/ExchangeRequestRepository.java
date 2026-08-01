@@ -21,6 +21,23 @@ public interface ExchangeRequestRepository extends JpaRepository<ExchangeRequest
 
     boolean existsBySenderIdAndReceiverIdAndStatus(Long senderId, Long receiverId, RequestStatus status);
 
+    // ✅ ADD THESE — Fetch joins to avoid N+1 queries
+    @Query("SELECT e FROM ExchangeRequest e " +
+            "JOIN FETCH e.sender " +
+            "JOIN FETCH e.receiver " +
+            "JOIN FETCH e.senderSkill " +
+            "JOIN FETCH e.receiverSkill " +
+            "WHERE e.sender.id = :userId")
+    List<ExchangeRequest> findBySenderIdWithDetails(@Param("userId") Long userId);
+
+    @Query("SELECT e FROM ExchangeRequest e " +
+            "JOIN FETCH e.sender " +
+            "JOIN FETCH e.receiver " +
+            "JOIN FETCH e.senderSkill " +
+            "JOIN FETCH e.receiverSkill " +
+            "WHERE e.receiver.id = :userId")
+    List<ExchangeRequest> findByReceiverIdWithDetails(@Param("userId") Long userId);
+
     @Query("SELECT e FROM ExchangeRequest e " +
             "JOIN FETCH e.sender " +
             "JOIN FETCH e.receiver " +
