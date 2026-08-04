@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // ✅ SEMICOLON
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // ✅ SEMICOLON HERE!
 
         return http.build();
     }
