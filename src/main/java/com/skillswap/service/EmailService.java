@@ -1,4 +1,4 @@
-package com.skillswap.service;
+/* package com.skillswap.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -53,4 +53,4 @@ public class EmailService {
 
         mailSender.send(message);
     }
-}
+} */

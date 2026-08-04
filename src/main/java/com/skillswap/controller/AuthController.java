@@ -30,7 +30,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final PasswordResetTokenRepository tokenRepository;
-    private final EmailService emailService;
+    //private final EmailService emailService;
     private final OTPService otpService;
 
     // ==================== REGISTER ====================
