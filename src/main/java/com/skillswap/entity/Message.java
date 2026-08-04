@@ -1,13 +1,16 @@
 package com.skillswap.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
 @Data
+@NoArgsConstructor
 public class Message {
 
     @Id
@@ -35,26 +38,4 @@ public class Message {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
-    // ✅ GETTERS AND SETTERS
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public User getSender() { return sender; }
-    public void setSender(User sender) { this.sender = sender; }
-
-    public User getReceiver() { return receiver; }
-    public void setReceiver(User receiver) { this.receiver = receiver; }
-
-    public ExchangeRequest getExchangeRequest() { return exchangeRequest; }
-    public void setExchangeRequest(ExchangeRequest exchangeRequest) { this.exchangeRequest = exchangeRequest; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-
-    public boolean isRead() { return isRead; }
-    public void setRead(boolean read) { isRead = read; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

@@ -1,17 +1,12 @@
 package com.skillswap.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Entity
-@Table(name = "user_skill_offer", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "skill_id"})
-})
+@Table(name = "user_skill_offer")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserSkillOffer {
 
     @Id
