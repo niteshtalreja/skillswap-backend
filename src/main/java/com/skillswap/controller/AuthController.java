@@ -32,6 +32,7 @@ public class AuthController {
     private final PasswordResetTokenRepository tokenRepository;
     private final EmailService emailService;
     private final OTPService otpService;
+    private final EmailService emailService;
 
     // ==================== REGISTER ====================
     @PostMapping("/register")
