@@ -35,4 +35,9 @@ public class User {
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+    @Column(unique = true)
+    private String phoneNumber;
+
+    @Column(name = "is_phone_verified")
+    private boolean isPhoneVerified = false;
 }

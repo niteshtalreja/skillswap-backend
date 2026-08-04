@@ -15,7 +15,6 @@ public interface UserSkillWantRepository extends JpaRepository<UserSkillWant, Lo
 
     void deleteByUserIdAndSkillId(Long userId, Long skillId);
 
-    // ✅ ADD THIS — Fetch join to avoid N+1 queries
     @Query("SELECT w FROM UserSkillWant w " +
             "JOIN FETCH w.user " +
             "JOIN FETCH w.skill " +

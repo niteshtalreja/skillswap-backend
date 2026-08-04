@@ -55,12 +55,12 @@ public class SkillService {
         wantRepository.save(new UserSkillWant(null, user, skill));
     }
 
-    @Transactional  // ✅ ADDED
+    @Transactional
     public void removeOfferSkill(Long userId, Long skillId) {
         offerRepository.deleteByUserIdAndSkillId(userId, skillId);
     }
 
-    @Transactional  // ✅ ADDED
+    @Transactional
     public void removeWantSkill(Long userId, Long skillId) {
         wantRepository.deleteByUserIdAndSkillId(userId, skillId);
     }

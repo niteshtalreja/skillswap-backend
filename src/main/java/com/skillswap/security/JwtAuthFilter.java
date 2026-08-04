@@ -18,12 +18,11 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor  // ✅ Use this
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;           // ✅ final
-    private final UserRepository userRepository;  // ✅ final
-
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,

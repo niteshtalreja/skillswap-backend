@@ -23,7 +23,7 @@ public class ExchangeRequestController {
     @PostMapping("/request")
     public ResponseEntity<?> sendRequest(@Valid @RequestBody ExchangeRequestDTO requestDTO,
                                          @AuthenticationPrincipal User user) {
-        // ✅ ADD LOGS
+
         System.out.println("=== SEND REQUEST ===");
         System.out.println("User ID: " + user.getId());
         System.out.println("User Email: " + user.getEmail());
@@ -35,7 +35,7 @@ public class ExchangeRequestController {
             ExchangeRequestResponseDTO response = exchangeRequestService.sendRequest(requestDTO, user.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("ERROR: " + e.getMessage());  // ✅ ADD LOG
+            System.err.println("ERROR: " + e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
