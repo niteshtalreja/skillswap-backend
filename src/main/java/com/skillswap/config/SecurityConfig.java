@@ -1,10 +1,6 @@
 package com.skillswap.config;
 
 import com.skillswap.security.JwtAuthFilter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
 import java.util.List;
 
 @Configuration
@@ -42,25 +36,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/skills/**").authenticated()
-                        .requestMatchers("/api/exchange/**").authenticated()
-                        .requestMatchers("/api/messages/**").authenticated()
-                        .requestMatchers("/ws/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()  // ⚠️ TEMPORARY — SAB ALLOW
                 )
-                .addFilterBefore(new OncePerRequestFilter() {
-                    @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-                            throws ServletException, IOException {
-                        String path = request.getRequestURI();
-                        if (path.startsWith("/api/auth/")) {
-                            filterChain.doFilter(request, response);
-                            return;
-                        }
-                        jwtAuthFilter.doFilterInternal(request, response, filterChain);
-                    }
-                }, UsernamePasswordAuthenticationFilter.class);
+        // ✅ COMMENT OUT JwtAuthFilter
+        // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -70,8 +49,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://skillswap-frontend-zeta.vercel.app",
-                "https://skillswap-frontend-git-main-nitesh17.vercel.app"
+                "https://skillswap-frontend-zeta.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
