@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         if (path.equals("/api/auth/register") || path.equals("/api/auth/login")) {
             filterChain.doFilter(request, response);
-            return;  // ⚠️ IMPORTANT: Yahan se return karna hai!
+            return;
         }
 
         // 🔐 PROTECTED ROUTES — VALIDATE JWT
