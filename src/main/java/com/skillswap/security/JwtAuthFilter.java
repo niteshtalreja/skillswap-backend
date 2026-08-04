@@ -23,17 +23,20 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
+        // ✅ PUBLIC ROUTES — SKIP JWT VALIDATION
         String path = request.getRequestURI();
         if (path.equals("/api/auth/register") || path.equals("/api/auth/login")) {
             filterChain.doFilter(request, response);
-            return;
+            return;  // ⚠️ IMPORTANT: Yahan se return karna hai!
         }
 
+        // 🔐 PROTECTED ROUTES — VALIDATE JWT
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
