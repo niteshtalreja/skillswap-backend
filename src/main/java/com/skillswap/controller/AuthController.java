@@ -6,7 +6,7 @@ import com.skillswap.entity.User;
 import com.skillswap.repository.PasswordResetTokenRepository;
 import com.skillswap.repository.UserRepository;
 import com.skillswap.security.JwtUtil;
-import com.skillswap.service.EmailService;
+//import com.skillswap.service.EmailService;
 import com.skillswap.service.OTPService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +61,7 @@ public class AuthController {
 
             // Send welcome email
             try {
-                emailService.sendWelcomeEmail(savedUser.getEmail(), savedUser.getName());
+                //emailService.sendWelcomeEmail(savedUser.getEmail(), savedUser.getName());
             } catch (Exception e) {
                 // Log error but don't fail registration
                 System.err.println("Failed to send welcome email: " + e.getMessage());
@@ -116,7 +116,7 @@ public class AuthController {
 
             // Send email
             try {
-                emailService.sendResetPasswordEmail(user.getEmail(), token);
+                //emailService.sendResetPasswordEmail(user.getEmail(), token);
             } catch (Exception e) {
                 System.err.println("Failed to send reset email: " + e.getMessage());
                 // Still return success to avoid exposing email existence
@@ -177,7 +177,7 @@ public class AuthController {
             userRepository.findByPhoneNumber(request.getPhoneNumber())
                     .ifPresent(user -> {
                         try {
-                            emailService.sendOTPEmail(user.getEmail(), otp);
+                          //  emailService.sendOTPEmail(user.getEmail(), otp);
                         } catch (Exception e) {
                             System.err.println("Failed to send OTP email: " + e.getMessage());
                         }
