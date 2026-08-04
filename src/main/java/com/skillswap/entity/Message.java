@@ -30,7 +30,6 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "exchange_request_id", nullable = false)
     private ExchangeRequest exchangeRequest;
-
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
