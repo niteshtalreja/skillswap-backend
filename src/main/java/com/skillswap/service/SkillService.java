@@ -27,13 +27,12 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
-    // Finds an existing skill by name (case-insensitive) or creates a new one
     private Skill getOrCreateSkill(String name) {
         return skillRepository.findByNameIgnoreCase(name.trim())
                 .orElseGet(() -> skillRepository.save(new Skill(null, name.trim())));
     }
 
-    @Transactional
+    @Transactional  // ✅ ADD THIS
     public void addOfferSkill(Long userId, String skillName) {
         User user = getUser(userId);
         Skill skill = getOrCreateSkill(skillName);
@@ -44,7 +43,7 @@ public class SkillService {
         offerRepository.save(new UserSkillOffer(null, user, skill));
     }
 
-    @Transactional
+    @Transactional  // ✅ ADD THIS
     public void addWantSkill(Long userId, String skillName) {
         User user = getUser(userId);
         Skill skill = getOrCreateSkill(skillName);
@@ -55,22 +54,22 @@ public class SkillService {
         wantRepository.save(new UserSkillWant(null, user, skill));
     }
 
-    @Transactional
+    @Transactional  // ✅ ADD THIS
     public void removeOfferSkill(Long userId, Long skillId) {
         offerRepository.deleteByUserIdAndSkillId(userId, skillId);
     }
 
-    @Transactional
+    @Transactional  // ✅ ADD THIS
     public void removeWantSkill(Long userId, Long skillId) {
         wantRepository.deleteByUserIdAndSkillId(userId, skillId);
     }
 
     public List<UserSkillOffer> getOffersForUser(Long userId) {
-        return offerRepository.findByUserIdWithDetails(userId);
+        return offerRepository.findByUserId(userId);
     }
 
     public List<UserSkillWant> getWantsForUser(Long userId) {
-        return wantRepository.findByUserIdWithDetails(userId);
+        return wantRepository.findByUserId(userId);
     }
 
     private User getUser(Long userId) {
