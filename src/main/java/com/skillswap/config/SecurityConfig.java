@@ -20,8 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // private final JwtAuthFilter jwtAuthFilter;  // ✅ COMMENT KARO
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -34,7 +32,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .anyRequest().permitAll()  // ✅ TEMPORARY: Sab allow
                 );
 
         return http.build();
@@ -46,12 +44,12 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "https://skillswap-frontend-zeta.vercel.app",
-                "https://skillswap-frontend-git-main-nitesh17.vercel.app",
-                "https://*.vercel.app"  // ✅ ADD THIS
+                "https://skillswap-frontend-git-main-nitesh17.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+        // ✅ allowCredentials hata diya — CORS issues ke liye
+        // config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
