@@ -34,9 +34,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()  // ✅ SAB ALLOW
+                        .anyRequest().permitAll()
                 );
-        // ✅ .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // COMMENT KARO
 
         return http.build();
     }
@@ -47,7 +46,8 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "https://skillswap-frontend-zeta.vercel.app",
-                "https://skillswap-frontend-git-main-nitesh17.vercel.app"
+                "https://skillswap-frontend-git-main-nitesh17.vercel.app",
+                "https://*.vercel.app"  // ✅ ADD THIS
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
