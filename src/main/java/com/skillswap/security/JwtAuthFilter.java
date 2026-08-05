@@ -1,4 +1,4 @@
-package com.skillswap.security;
+/*package com.skillswap.security;
 
 import com.skillswap.entity.User;
 import com.skillswap.repository.UserRepository;
@@ -66,4 +66,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-}
+}*/
