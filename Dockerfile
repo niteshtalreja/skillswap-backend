@@ -1,11 +1,18 @@
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine AS build
 
 WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw && ./mvnw clean install -DskipTests
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-Xms256m", "-Xmx384m", "-jar", "target/skillswap-backend-*.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
