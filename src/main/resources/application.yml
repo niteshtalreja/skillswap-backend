@@ -1,78 +1,19 @@
-spring:
-  application:
-    name: skillswap-backend
-  
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:skillswap}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      maximum-pool-size: 20
-      minimum-idle: 5
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
+server:
+  port: 8080
 
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
+    show-sql: true
     properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          batch_size: 25
-        order_inserts: true
-        order_updates: true
-        format_sql: true
-        use_sql_comments: true
-        generate_statistics: false
-    show-sql: false
-    open-in-view: false
-
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
-      indent-output: false
-    deserialization:
-      fail-on-unknown-properties: false
-
-  mvc:
-    cors:
-      allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
-      allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
-      allowed-headers: '*'
-      allow-credentials: true
-      max-age: 3600
-
-server:
-  port: ${SERVER_PORT:8080}
-  servlet:
-    context-path: /api
-  error:
-    include-message: always
-    include-binding-errors: always
+      jakarta.persistence.schema-generation.database.action: none
 
 app:
   jwt:
-    secret: ${JWT_SECRET:your-secret-key-change-this-in-production-at-least-32-characters-long}
-    expiration: ${JWT_EXPIRATION:86400000}
-    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
-  
-  cors:
-    max-age: 3600
-
-logging:
-  level:
-    root: INFO
-    com.skillswap: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.security: DEBUG
-    org.hibernate: WARN
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-  file:
-    name: logs/skillswap.log
-    max-size: 10MB
-    max-history: 10
+    secret: ${JWT_SECRET:change-me-to-a-very-long-secret-string}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 1 day
